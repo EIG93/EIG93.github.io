@@ -1,0 +1,9 @@
+[submodule "eig93-blog/themes/paper"]
+	path = eig93-blog/themes/paper
+	url = https://github.com/nanxiaobei/hugo-paper
+[submodule "eig93-blog/themes/reveal-hugo"]
+	path = eig93-blog/themes/reveal-hugo
+	url = git@github.com:dzello/reveal-hugo.git
+[submodule "egi93/themes/paper"]
+	path = egi93/themes/paper
+	url = https://github.com/nanxiaobei/hugo-paper
