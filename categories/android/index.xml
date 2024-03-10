@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on 技术和生活碎碎念</title>
+    <link>https://eig93.github.io/categories/android/</link>
+    <description>Recent content in Android on 技术和生活碎碎念</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://eig93.github.io/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在Android中使用GeckoView替代Webview</title>
+      <link>https://eig93.github.io/post/%E5%9C%A8android%E4%B8%AD%E4%BD%BF%E7%94%A8geckoview%E6%9B%BF%E4%BB%A3webview/</link>
+      <pubDate>Sun, 10 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>https://eig93.github.io/post/%E5%9C%A8android%E4%B8%AD%E4%BD%BF%E7%94%A8geckoview%E6%9B%BF%E4%BB%A3webview/</guid>
+      <description>&lt;p&gt;这篇文章主要介绍了使用GeckoView时需要注意到的一些内容&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
