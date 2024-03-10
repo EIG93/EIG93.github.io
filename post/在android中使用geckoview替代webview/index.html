@@ -1,0 +1,710 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="en-us"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>在Android中使用GeckoView替代Webview - My New Hugo Site</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="这篇文件主要介绍了使用GeckoView时需要注意到的一些内容" />
+  <meta name="author" content="EIG93" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://EIG93.github.io/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="https://EIG93.github.io/theme.svg" />
+
+  
+  
+  
+  
+  <link rel="preload" as="image" href="http://www.gravatar.com/avatar/?d=identicon&amp;s=32" />
+  
+  
+
+  
+  
+  <link rel="preload" as="image" href="https://EIG93.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://EIG93.github.io/rss.svg" />
+  
+  
+
+  
+  
+
+  
+  
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () =>
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+          
+          throwOnError : false
+        })
+    );
+</script>
+
+  
+  
+  
+
+  
+  <link rel="icon" href="https://EIG93.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://EIG93.github.io/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.121.1">
+
+  
+  
+  
+  
+  
+  <meta itemprop="name" content="在Android中使用GeckoView替代Webview">
+<meta itemprop="description" content="Geckoview在Android中的简单使用"><meta itemprop="datePublished" content="2024-03-10T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2024-03-10T00:00:00+00:00" />
+<meta itemprop="wordCount" content="615">
+<meta itemprop="keywords" content="markdown,css,html," />
+  
+  <meta property="og:title" content="在Android中使用GeckoView替代Webview" />
+<meta property="og:description" content="Geckoview在Android中的简单使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://EIG93.github.io/post/%E5%9C%A8android%E4%B8%AD%E4%BD%BF%E7%94%A8geckoview%E6%9B%BF%E4%BB%A3webview/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-03-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-03-10T00:00:00+00:00" />
+
+
+  
+  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="在Android中使用GeckoView替代Webview"/>
+<meta name="twitter:description" content="Geckoview在Android中的简单使用"/>
+
+  
+  
+  
+  <link rel="canonical" href="https://EIG93.github.io/post/%E5%9C%A8android%E4%B8%AD%E4%BD%BF%E7%94%A8geckoview%E6%9B%BF%E4%BB%A3webview/" />
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="https://EIG93.github.io"
+      >My New Hugo Site</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/EIG93"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="https://EIG93.github.io/index.xml"
+        target="_blank"
+        rel="alternate"
+      >
+        rss
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">在Android中使用GeckoView替代Webview</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Mar 10, 2024</time>
+      
+      
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>EIG93</span>
+      
+    </div>
+    
+  </header>
+
+  <section><p>这篇文件主要介绍了使用GeckoView时需要注意到的一些内容</p>
+<h2 id="headings">Headings</h2>
+<h1 id="在-android-中使用-geckoview-替代-webview">在 Android 中使用 GeckoView 替代 Webview</h1>
+<p>之前开发一个 Android 项目项目，是混合开发，因为国内默认的手机浏览器大部分都经过魔改，以至于有些功能在系统默认的 Webview 中的表现不一致。因为项目中使用到了 WebRTC 来实现语音的功能，但是在一部分厂家的手机上出现了没有声音的现象，判断是部分的系统默认的 Webview 不支持 h264 编码，为了在各个手机上有一致的体验，选择寻找 Webview 的替代，最终选择了 Geckoview(开源，Mozilla 团队开发维护)，官方的教程<a href="https://firefox-source-docs.mozilla.org/mobile/android/geckoview/consumer/geckoview-quick-start.html">教程</a>.</p>
+<p>GeckoView 发布了三个版本:Stable, Beta 和 Nightly，稳定性递减。这骗文章中的例子使用的依赖版本(Stable)：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gradle" data-lang="gradle"><span style="display:flex;"><span>implementation <span style="color:#e6db74">&#39;org.mozilla.geckoview:geckoview:115.0.20230726201356&#39;</span>
+</span></span></code></pre></div><p>使用的版本号可以从<a href="https://mvnrepository.com/search?q=GeckoView">Maven 仓库</a>中搜索,也可以直接去官方给的<a href="https://maven.mozilla.org/?prefix=maven2/org/mozilla/geckoview/">地址</a>中查找自己想要的版本。
+基本的使用，照着官网就可以直接打开网页了。不过 Geckoview 和我们平时使用的 Webview 还是有很大的不同。在 Webview 中很多属性我们只需要在 WebSettings 设置就可以了。而一些页面交互的处理，使用自定义的 WebChromeClient，包括全屏，权限的授权处理和文件的选择等都可以通过 WebChromeClient 提供的回调方法去解决，这块网上的资料很丰富。但是在 GeckoView 中是没有 WebChromeClient 的，而是在 GeckoSession 类中提供了很多委托接口让开发者自己去实现一些回调方法做处理。
+比如为了在网页中使用麦克风我们需要添加权限，GeckoSession 提供了一个接口 PermissionDelegate，里面有各样的回调方法，其中我们需要在方法 onMediaPermissionRequest()中添加我们的权限。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span> <span style="color:#66d9ef">val</span> permissionDelegate = <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">GeckoSession</span>.PermissionDelegate {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onAndroidPermissionsRequest</span>(
+</span></span><span style="display:flex;"><span>            session: GeckoSession,
+</span></span><span style="display:flex;"><span>            permissions: Array&lt;<span style="color:#66d9ef">out</span> String&gt;?,
+</span></span><span style="display:flex;"><span>            callback: <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.Callback
+</span></span><span style="display:flex;"><span>        ) {
+</span></span><span style="display:flex;"><span>            mCallback = callback
+</span></span><span style="display:flex;"><span>            requestAndroidPermissions(permissions)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onContentPermissionRequest</span>(
+</span></span><span style="display:flex;"><span>            p0: GeckoSession,
+</span></span><span style="display:flex;"><span>            p1: <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.ContentPermission
+</span></span><span style="display:flex;"><span>        ): GeckoResult&lt;Int&gt;? {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span>.onContentPermissionRequest(p0, p1)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onMediaPermissionRequest</span>(
+</span></span><span style="display:flex;"><span>            session: GeckoSession,
+</span></span><span style="display:flex;"><span>            uri: String,
+</span></span><span style="display:flex;"><span>            video: Array&lt;<span style="color:#66d9ef">out</span> <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaSource&gt;?,
+</span></span><span style="display:flex;"><span>            audio: Array&lt;<span style="color:#66d9ef">out</span> <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaSource&gt;?,
+</span></span><span style="display:flex;"><span>            callback: <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaCallback
+</span></span><span style="display:flex;"><span>        ) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//音频，麦克风相关权限
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">var</span> videoPermission: <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaSource? = <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> audioPermission: <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaSource? = <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            video<span style="color:#f92672">?.</span>let {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">it</span>.isNotEmpty()) {
+</span></span><span style="display:flex;"><span>                    videoPermission = <span style="color:#66d9ef">it</span>[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            audio<span style="color:#f92672">?.</span>let {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">it</span>.isNotEmpty()) {
+</span></span><span style="display:flex;"><span>                    audioPermission = <span style="color:#66d9ef">it</span>[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//注意，我们这里添加了全局的mediaCallback，为了在原生代码获取到权限之后，给Web端的权限请求授权.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            mediaCallback = callback
+</span></span><span style="display:flex;"><span>            requestForMediaPermissions(videoPermission, audioPermission)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>实现了这样的一个接口之后，我们需要设置给 GeckoSession。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>  mSession<span style="color:#f92672">?.</span>permissionDelegate = permissionDelegate
+</span></span></code></pre></div><p>这样，当Web端请求打开麦克风的时候我们会在回调方法 onMediaPermissionRequest 中获取到权限参数，并通过原生代码去请求权限，等用户同意了权限之后，我们再通过 GeckoSession.PermissionDelegate.MediaCallback 去授权Web端请求的权限。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">//这个方法在后面的代码中被调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">grantMediaPermissions</span>(videoPermission : <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaSource?,
+</span></span><span style="display:flex;"><span>                          audioPermission: <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaSource?) {
+</span></span><span style="display:flex;"><span>        mediaCallback<span style="color:#f92672">?.</span>grant(videoPermission, audioPermission)
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">requestForMediaPermissions</span>(videoPermission : <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaSource?,
+</span></span><span style="display:flex;"><span>                                    audioPermission: <span style="color:#a6e22e">GeckoSession</span>.<span style="color:#a6e22e">PermissionDelegate</span>.MediaSource?) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">XXPermissions</span>.with(<span style="color:#66d9ef">this</span>).permission(<span style="color:#a6e22e">Permission</span>.RECORD_AUDIO).permission(<span style="color:#a6e22e">Permission</span>.CAMERA).request(<span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">OnPermissionCallback</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onGranted</span>(permissions: MutableList&lt;String&gt;, allGranted: Boolean) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//给Web端的请求授权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            grantMediaPermissions(videoPermission, audioPermission)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onDenied</span>(permissions: MutableList&lt;String&gt;, doNotAskAgain: Boolean) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (permissions.size <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">ToastUtil</span>.showToast(<span style="color:#e6db74">&#34;授权失败，请先到设置页面授权本地录音和相机权限&#34;</span>)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (permissions.size <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (permissions[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">Permission</span>.RECORD_AUDIO) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">ToastUtil</span>.showToast(<span style="color:#e6db74">&#34;请先到设置页面授权本地录音权限&#34;</span>)
+</span></span><span style="display:flex;"><span>                }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (permissions[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">Permission</span>.CAMERA){
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">ToastUtil</span>.showToast(<span style="color:#e6db74">&#34;请先到设置页面授权相机权限&#34;</span>)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">XXPermissions</span>.startPermissionActivity(<span style="color:#66d9ef">this</span><span style="color:#a6e22e">@GeckoActivity</span>, permissions)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>这样我们就完成了一个麦克风权限的请求并且授权的代码。比较重要的是理解 GeckoView 在一些操作上很多时候都是需要设置委托类的。再举个例子:
+获取Web端页面的生命周期，在 Webview 中我们都是通过 WebViewClient 的 onPageStarted 和 onPageFinished 来判断的，但是在 GeckoView 中也是通过一个委托的实现来判断：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> progressDelegate = <span style="color:#66d9ef">object</span> <span style="color:#960050;background-color:#1e0010">: </span><span style="color:#a6e22e">ProgressDelegate</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onPageStart</span>(session: GeckoSession, url: String) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">super</span>.onPageStart(session, url)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onPageStop</span>(session: GeckoSession, success: Boolean) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">super</span>.onPageStop(session, success)
+</span></span><span style="display:flex;"><span>            mHandler<span style="color:#f92672">?.</span>postDelayed({ hideLoading() }, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//使用的时候，设置给GeckoSession
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    mSession<span style="color:#f92672">?.</span>progressDelegate = progressDelegate
+</span></span></code></pre></div><p>以上是一些设置方面的内容，而使用 Webview 我们通常都会有和原生端交互的需求。在 Webview 中还是比较简单的，直接使用注解“@JavascriptInterface”来操作，而在 GeckoView 中则有很大的不同，GeckoView 使用插件的方式。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>       <span style="color:#75715e">//Web端交互插件相关代码.这里是在本地做测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        mRuntime<span style="color:#f92672">?.</span>webExtensionController
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">?.</span>ensureBuiltIn(<span style="color:#e6db74">&#34;resource://android/assets/sample-ext/&#34;</span>, <span style="color:#e6db74">&#34;sample@mock.com&#34;</span>)<span style="color:#f92672">?.</span>accept {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> extension = <span style="color:#66d9ef">it</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                runOnUiThread {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (extension <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">Log</span>.e(<span style="color:#e6db74">&#34;extension&#34;</span>, <span style="color:#e6db74">&#34;插件安装成功&#34;</span>)
+</span></span><span style="display:flex;"><span>                        <span style="color:#75715e">//这里插件安装成功之后骂我们还是通过一个委托实现对象messageDelegate，来作为消息交互的回调,并指定一个名称&#34;browser&#34;，随意只要可以和Javascript中的名称对应上，Javascript代码将在文章下方展示
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                        mSession<span style="color:#f92672">?.</span>webExtensionController<span style="color:#f92672">?.</span>setMessageDelegate(extension, messageDelegate, <span style="color:#e6db74">&#34;browser&#34;</span>)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//sample-page是放到本地的一个包含测试页面的文件夹，可以改成远程网页,这里需要先将项目assets文件夹下面的sample-page复制到app的私有目录,注意这个只是为了测试，真的项目网页是通过请求获取到的，可以忽略这一步
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> samplePageFolder = File(filesDir, <span style="color:#e6db74">&#34;sample-page&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (!samplePageFolder.exists()) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Copy sample page to app&#39;s private storage
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// This is required because there is no way to match web extension&#39;s content_scripts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// to resource://android/assets/... and jar:file://... URLs which are used for
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// communication between page and native app (by web extension in-between).
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            samplePageFolder.mkdirs()
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">file</span> <span style="color:#66d9ef">in</span> assets.list(<span style="color:#e6db74">&#34;sample-page&#34;</span>)<span style="color:#f92672">!!</span>) {
+</span></span><span style="display:flex;"><span>                assets.<span style="color:#66d9ef">open</span>(<span style="color:#e6db74">&#34;sample-page/</span><span style="color:#e6db74">$file</span><span style="color:#e6db74">&#34;</span>).copyTo(File(samplePageFolder, <span style="color:#66d9ef">file</span>).outputStream())
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span></code></pre></div><p>messageDelegate相关代码:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> mPort: <span style="color:#a6e22e">WebExtension</span>.Port? = <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">var</span> messageDelegate = <span style="color:#66d9ef">object</span>: <span style="color:#a6e22e">WebExtension</span>.MessageDelegate {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onMessage</span>(
+</span></span><span style="display:flex;"><span>            nativeApp: String,
+</span></span><span style="display:flex;"><span>            message: Any,
+</span></span><span style="display:flex;"><span>            sender: <span style="color:#a6e22e">WebExtension</span>.MessageSender
+</span></span><span style="display:flex;"><span>        ): GeckoResult&lt;Any&gt;? {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">Log</span>.e(<span style="color:#e6db74">&#34;收到来自Web端的消息==&#34;</span>, message.toString())
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (message <span style="color:#66d9ef">is</span> JsonObject) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//判断消息格式并做消息处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onConnect</span>(port: <span style="color:#a6e22e">WebExtension</span>.Port) {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//            super.onConnect(port)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">Log</span>.e(<span style="color:#e6db74">&#34;MessageDelegate&#34;</span>, <span style="color:#e6db74">&#34;onConnect&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            mPort = port;
+</span></span><span style="display:flex;"><span>            mPort<span style="color:#f92672">?.</span>setDelegate(mPortDelegate);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> obj = JSONObject()
+</span></span><span style="display:flex;"><span>            obj.put(<span style="color:#e6db74">&#34;msg&#34;</span>, <span style="color:#e6db74">&#34;hello world&#34;</span>)
+</span></span><span style="display:flex;"><span>            mPort<span style="color:#f92672">?.</span>postMessage(obj)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>项目中插件存放的目录:</p>
+<p><img src="../../public/jscode.png" alt="插件目录" title="插件目录"></p>
+<p>manifest.json文件内容(重要，插件配置相关):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;manifest_version&#34;</span>: <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;sample-extension&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;1.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Sample extension&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;browser_specific_settings&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gecko&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;sample@mock.com&#34;</span><span style="color:#75715e">//配置一个自定义的id，kotlin代码中使用.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;content_scripts&#34;</span>: [<span style="color:#75715e">//配置和Web端交互的js文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;matches&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;&lt;all_urls&gt;&#34;</span><span style="color:#75715e">//所有的url都通过communicate.js交互
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      ],
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;js&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;communicate.js&#34;</span>
+</span></span><span style="display:flex;"><span>      ],
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;run_at&#34;</span>: <span style="color:#e6db74">&#34;document_start&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;background&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;scripts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;background.js&#34;</span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;permissions&#34;</span>: [<span style="color:#75715e">//权限相关
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;nativeMessaging&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;nativeMessagingFromContent&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;geckoViewAddons&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;webRequest&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;webRequestBlocking&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;tabs&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;webNavigation&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&lt;all_urls&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>communicate.js文件内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Content:start!&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connectNative
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//kotlin使用到browser
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">port</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">browser</span>.<span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">connectNative</span>(<span style="color:#e6db74">&#34;browser&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Sharing_objects_with_page_scripts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">JSBridge</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//这个方法提供给Web端发送内容到原生,Web端的Javascript代码需要去调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">postMessage</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">message</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">port</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">message</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">wrappedJSObject</span>.<span style="color:#a6e22e">JSBridge</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cloneInto</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">JSBridge</span>,
+</span></span><span style="display:flex;"><span>    window,
+</span></span><span style="display:flex;"><span>    { <span style="color:#a6e22e">cloneFunctions</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">port</span>.<span style="color:#a6e22e">onMessage</span>.<span style="color:#a6e22e">addListener</span>(<span style="color:#a6e22e">message</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Received message from native app: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">message</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//这里是从原生代码中接收到信息并返回给Web端页面
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//    port.postMessage(`Received: ${JSON.stringify(message)}`);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">wrappedJSObject</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">wrappedJSObject</span>.<span style="color:#a6e22e">webPageCallback</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//webPageCallback 这个方法需要在Web端页面中定义，文章往下有代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        window.<span style="color:#a6e22e">wrappedJSObject</span>.<span style="color:#a6e22e">webPageCallback</span>( <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">message</span>));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>background.js文件我们暂时没有使用到，这一块属于插件内容，具体可以参考浏览器的插件开发.
+接下来是本地测试的web页面，放在sample-page目录里面，主要是code.js</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Javascript" data-lang="Javascript"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Hello from the sample code!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sendMessageToNative</span>(<span style="color:#a6e22e">message</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">jsonObj</span> <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">message</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">jsonObj</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;发送给原生端信息&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">jsonObj</span>));
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//这个方法在communicate.js中定义了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    window.<span style="color:#a6e22e">JSBridge</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">message</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//这个方法在communicate.js中被调用转发给原生代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">webPageCallback</span>(<span style="color:#a6e22e">message</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;收到原生端的信息&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">message</span>);
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;message&#34;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">message</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>接着是page.html：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manifest&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;path/to/manifest.json&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;Sample Extension&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;code.js&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;Test page 测试测试&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;message&#34;</span>&gt;hhh&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>//点击按钮发送消息
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sendMessageToNative(&#39;hello world&#39;)&#34;</span>&gt;SEND MESSAGE&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>最后我们可以回去看一下messageDelegate的代码，结合messageDelegate,整个Javascript和原生的交互就完成了，和Webview还是有很大的不同的。</p>
+<p>Webview中大部分原先WebViewClient和WebChromeClient的工作，都交给了GeckoSession中各种委托接口的实现，在Javascript和原生的交互中，Webview使用&quot;@JavascriptInterface&quot;注解来实现比较简洁，而Geckoview则使用了插件的形式，会复杂一些，另外，Geckoview最终会被打包到apk中，会增加包体积，好处是可以解决各个厂家魔改系统浏览器内核导致体验不一致带来的各种适配问题。</p>
+<p>最后，代码中的一些内容参考了开源项目:(<a href="https://github.com/mozilla/geckoview">https://github.com/mozilla/geckoview</a>)和(<a href="https://github.com/truefedex/GeckoViewNativeWebApp">https://github.com/truefedex/GeckoViewNativeWebApp</a>)</p></section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://EIG93.github.io/tags/markdown"
+      >markdown</a
+    >
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://EIG93.github.io/tags/css"
+      >css</a
+    >
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://EIG93.github.io/tags/html"
+      >html</a
+    >
+    
+  </footer>
+  
+
+  
+  
+
+  
+  
+  <div class="mt-24" id="disqus_thread"></div>
+  <script>
+    const disqusShortname = 'YOUR_DISQUS_SHORTNAME';
+    const script = document.createElement('script');
+    script.src = 'https://' + disqusShortname + '.disqus.com/embed.js';
+    script.setAttribute('data-timestamp', +new Date());
+    document.head.appendChild(script);
+  </script>
+  
+
+  
+  
+  <div class="mt-24" id="graphcomment"></div>
+  <script type="text/javascript">
+    var __semio__params = {
+      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
+      behaviour: {
+        
+      },
+      
+    };
+
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
+
+    (function () {
+      var gc = document.createElement('script');
+      gc.type = 'text/javascript';
+      gc.async = true;
+      gc.onload = __semio__onload;
+      gc.defer = true;
+      gc.src =
+        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (
+        document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]
+      ).appendChild(gc);
+    })();
+  </script>
+  
+
+  
+
+  
+    <div class="giscus mt-24"></div>
+    <script src="https://giscus.app/client.js"
+          data-repo="YOUR_GISCUS_REPO"
+          data-repo-id="YOUR_GISCUS_REPO_ID"
+          data-category="YOUR__GISCUS_CATEGORY"
+          data-category-id="YOUR_GISCUS_CATEGORY_ID"
+          data-mapping="pathname"
+          data-strict="1"
+          data-reactions-enabled="0"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="light"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+    </script>
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2024
+    <a class="link" href="https://EIG93.github.io">My New Hugo Site</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>
