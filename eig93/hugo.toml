@@ -2,7 +2,6 @@ baseURL = 'https://EIG93.github.io'
 languageCode = 'en-us'
 title = '关于技术和生活的碎碎念'
 theme = "paper"
-disqusShortname = 'YOUR_DISQUS_SHORTNAME'   # use disqus comments
 
 [params]
   # color style
@@ -21,5 +20,7 @@ disqusShortname = 'YOUR_DISQUS_SHORTNAME'   # use disqus comments
   name = 'EIG93'
   bio = 'Be humble.'
 
-  comments = false                            # disable comments for a specific page
- math = true                                 # enable KaTeX math typesetting for a specific page
+
+
+comments = false                            # disable comments for a specific page
+math = true                                 # enable KaTeX math typesetting for a specific page
