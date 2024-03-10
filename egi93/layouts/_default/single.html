@@ -58,20 +58,20 @@
   {{ end }}
 
   <!-- Disqus -->
-  {{ if and site.DisqusShortname (not (eq .Params.comments false)) }}
-  <div class="mt-24" id="disqus_thread"></div>
+  <!-- {{ if and site.DisqusShortname (not (eq .Params.comments false)) }} -->
+  <!-- <div class="mt-24" id="disqus_thread"></div>
   <script>
     const disqusShortname = '{{ site.DisqusShortname }}';
     const script = document.createElement('script');
     script.src = 'https://' + disqusShortname + '.disqus.com/embed.js';
     script.setAttribute('data-timestamp', +new Date());
     document.head.appendChild(script);
-  </script>
-  {{ end }}
+  </script> -->
+  <!-- {{ end }} -->
 
   <!-- GraphComment -->
-  {{ if and site.Params.graphCommentId (not (eq .Params.comments false)) }}
-  <div class="mt-24" id="graphcomment"></div>
+  <!-- {{ if and site.Params.graphCommentId (not (eq .Params.comments false)) }} -->
+  <!-- <div class="mt-24" id="graphcomment"></div>
   <script type="text/javascript">
     var __semio__params = {
       graphcommentId: '{{ site.Params.graphCommentId  }}',
@@ -98,15 +98,15 @@
         document.getElementsByTagName('body')[0]
       ).appendChild(gc);
     })();
-  </script>
-  {{ end }}
+  </script> -->
+  <!-- {{ end }} -->
 
   <!-- mermaid -->
-  {{- partial "mermaid.html" . -}}
+  <!-- {{- partial "mermaid.html" . -}} -->
 
   <!-- giscus comment -->
-  {{ if and site.Params.giscus.repo (not (eq .Params.comments false)) }}
-    <div class="giscus mt-24"></div>
+  <!-- {{ if and site.Params.giscus.repo (not (eq .Params.comments false)) }} -->
+    <!-- <div class="giscus mt-24"></div>
     <script src="https://giscus.app/client.js"
           data-repo="{{ site.Params.giscus.repo }}"
           data-repo-id="{{ site.Params.giscus.repoId }}"
@@ -122,8 +122,8 @@
           data-loading="{{ site.Params.giscus.loading | default (print `lazy`) }}"
           crossorigin="anonymous"
           async>
-    </script>
-  {{ end }}
+    </script> -->
+  <!-- {{ end }} -->
 </article>
 
 {{ end }}
